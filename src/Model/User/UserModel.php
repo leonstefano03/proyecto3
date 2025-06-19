@@ -16,7 +16,7 @@ final readonly class UserModel extends DatabaseModel {
                         U.username,
                         U.password
                     FROM
-                        user U
+                        users U
                     WHERE
                         U.id = :id
                 SELECT_QUERY;
@@ -39,7 +39,7 @@ final readonly class UserModel extends DatabaseModel {
                         U.username,
                         U.password
                     FROM
-                        user U
+                        users U
                     WHERE
                         U.email = :email && u.password = :password
                 SELECT_QUERY;
@@ -64,7 +64,7 @@ final readonly class UserModel extends DatabaseModel {
                         U.username,
                         U.password
                     FROM 
-                        user U
+                        users U
                 SELECT_QUERY;
 
         $primitiveResults = $this->primitiveQuery($query);

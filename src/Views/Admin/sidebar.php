@@ -1,8 +1,12 @@
-<?php 
-  $title = 'Entretenimientos - Admin';
-  include_once('src/Views/Admin/sidebar.php'); 
-?>
-<style>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title><?php echo $title ?? 'Admin' ?></title>
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
     * {
       margin: 0;
       padding: 0;
@@ -142,37 +146,12 @@
       }
     }
   </style>
+</head>
+<body>
 
-  <!-- Contenido principal -->
-  <div class="main">
-    <div class="header">
-      <h2>Listado de Categorías</h2>
-      <a href="/admin/categories/create" class="btn-create">+</a>
-    </div>
-
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php foreach ($data['categories'] as $category): ?>
-          <tr>
-            <td><?php echo $category->id(); ?></td>
-            <td><?php echo $category->name(); ?></td>
-            <td>
-              <a href="/admin/categories/update/<?php echo $category->id(); ?>" class="edit-link">
-                <i class="fas fa-pen"></i>
-              </a>
-            </td>
-          </tr>
-        <?php endforeach; ?>
-      </tbody>
-    </table>
+  <!-- Sidebar de Admin -->
+  <div class="sidebar">
+    <h1>Admin</h1>
+    <a href="/admin/categories">Categorias</a>
+    <a href="/admin/entertainments">Entretenimientos</a>
   </div>
-
-</body>
-</html>

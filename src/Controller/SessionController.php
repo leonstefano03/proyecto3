@@ -6,7 +6,7 @@ readonly class SessionController {
 	{
 		$_SESSION['user_id'] = $id;
 		
-		header('Location: /admin/');
+		header('Location: /admin/entertainments');
 		exit();
 	}	
 	

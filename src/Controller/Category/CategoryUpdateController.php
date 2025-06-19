@@ -14,6 +14,7 @@ final readonly class CategoryUpdateController extends ViewController {
 
     public function start(int $id): void 
     {
+        $this->validateUser();
         $category = $this->service->find($id);
         
         $data = [

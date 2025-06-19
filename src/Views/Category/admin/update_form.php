@@ -1,9 +1,7 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Editar Categoría - Admin</title>
+<?php 
+  $title = 'Entretenimientos - Admin';
+  include_once('src/Views/Admin/sidebar.php'); 
+?>
   <style>
     * {
       margin: 0;
@@ -143,16 +141,6 @@
       }
     }
   </style>
-</head>
-<body>
-
-  <!-- Sidebar de Admin -->
-   <div class="sidebar">
-    <h1>Admin</h1>
-    <a href="/admin/categories">Categorias</a>
-    <a href="/admin/entertainments">Entretenimientos</a>
-  </div>
-
   <!-- Contenido principal -->
   <div class="main">
     <div class="form-container">
@@ -169,5 +157,4 @@
     </div>
   </div>
 
-</body>
-</html>
+<?php include_once('src/Views/Admin/footer.php'); ?>

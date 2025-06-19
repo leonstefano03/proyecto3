@@ -167,9 +167,9 @@
     <div class="form-container">
       <h2>Iniciar Sesion</h2>
       <form action="/admin/login" method="POST">
-        <label for="name">nombre</label>
-        <input type="text" name="username" placeholder="username">
-        <label for="password">contraseña</label>
+        <label for="email">Email</label>
+        <input type="text" name="email" placeholder="email">
+        <label for="password">Contraseña</label>
         <input type="password" name="password" placeholder="password">
         <button type="submit" class="submit-button">Login</button>
       </form>

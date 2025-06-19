@@ -1,8 +1,8 @@
 <?php
 
+include_once $_SERVER["DOCUMENT_ROOT"].'/src/Controller/ViewController.php';
 use Src\Service\Entertainment\EntertainmentsSearcherService;
 
-include_once $_SERVER["DOCUMENT_ROOT"].'/src/Controller/ViewController.php';
 
 final readonly class EntertainmentsAdminController extends ViewController {
     private EntertainmentsSearcherService $service;
@@ -14,6 +14,8 @@ final readonly class EntertainmentsAdminController extends ViewController {
 
     public function start(): void
     {
+        $this->validateUser();
+
         $entertainment = $this->service->search();
 
         $data = [

@@ -17,9 +17,9 @@ final readonly class UserLoginService {
         $this->model = new UserModel();
     }
 
-    public function find(string $username, string $password): ?User 
+    public function find(string $email, string $password): ?User 
     {
-        $user = $this->model->findByUsernameAndPassword($username, $password);
+        $user = $this->model->findByEmailAndPassword($email, $password);
 
         return $user;
     }

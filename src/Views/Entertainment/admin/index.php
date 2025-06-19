@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Categorías - Admin</title>
-  <!-- Font Awesome CDN -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <style>
+<?php 
+  $title = 'Entretenimientos - Admin';
+  include_once('src/Views/Admin/sidebar.php'); 
+?>
+ <style>
     * {
       margin: 0;
       padding: 0;
@@ -146,57 +142,46 @@
       }
     }
   </style>
-</head>
-<body>
-
-  <!-- Sidebar de Admin -->
-    <div class="sidebar">
-    <h1>Admin</h1>
-    <a href="/admin/categories">Categorias</a>
-    <a href="/admin/entertainments">Entretenimientos</a>
+<!-- Contenido principal -->
+<div class="main">
+  <div class="header">
+    <h2>Listado de Entretenimiento</h2>
+    <a href="/admin/entertainments/create" class="btn-create">+</a>
   </div>
 
-  <!-- Contenido principal -->
-  <div class="main">
-    <div class="header">
-      <h2>Listado de Entretenimiento</h2>
-      <a href="/admin/entertainments/create" class="btn-create">+</a>
-    </div>
-
-    <table>
-      <thead>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Tipo</th>
+        <th>¿Finalizado?</th>
+        <th>Categoría</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php foreach ($data['entertainments'] as $entertainment): ?>
         <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Tipo</th>
-          <th>¿Finalizado?</th>
-          <th>Categoría</th>
-          <th>Acciones</th>
+          <td><?php echo $entertainment->id(); ?></td>
+          <td><?php echo $entertainment->name(); ?></td>
+          <td>
+            <?php echo $entertainment->type() == 1 ? 'Película' : 'Serie'; ?>
+          </td>
+          <td>
+            <?php echo $entertainment->isFinal() ? 'Sí' : 'No'; ?>
+          </td>
+          <td><?php echo $entertainment->categoryId(); ?></td>
+          <td>
+            <a href="/admin/entertainments/update/<?php echo $entertainment->id(); ?>" class="edit-link">
+              <i class="fas fa-pen"></i>
+            </a>
+          </td>
         </tr>
-      </thead>
-      <tbody>
-        <?php foreach ($data['entertainments'] as $entertainment): ?>
-          <tr>
-            <td><?php echo $entertainment->id(); ?></td>
-            <td><?php echo $entertainment->name(); ?></td>
-            <td>
-              <?php echo $entertainment->type() == 1 ? 'Película' : 'Serie'; ?>
-            </td>
-            <td>
-              <?php echo $entertainment->isFinal() ? 'Sí' : 'No'; ?>
-            </td>
-            <td><?php echo $entertainment->categoryId(); ?></td>
-            <td>
-              <a href="/admin/entertainments/update/<?php echo $entertainment->id(); ?>" class="edit-link">
-                <i class="fas fa-pen"></i>
-              </a>
-            </td>
-          </tr>
-        <?php endforeach; ?>
-      </tbody>
-    </table>
+      <?php endforeach; ?>
+    </tbody>
+  </table>
 
-  </div>
+</div>
 
-</body>
-</html>
+<?php include_once('src/Views/Admin/footer.php'); ?>

@@ -1,9 +1,10 @@
 <?php 
+include_once $_SERVER["DOCUMENT_ROOT"].'/src/Controller/SessionController.php';
 
 use Src\Service\Category\CategoryUpdaterService;
 
 
-final readonly class CategoryPutController {
+final readonly class CategoryPutController extends SessionController {
     private CategoryUpdaterService $service;
 
     public function __construct() {
@@ -12,6 +13,7 @@ final readonly class CategoryPutController {
 
     public function start($id): void 
     {
+        $this->validateUser();
         $name = $_POST['name'];
         
         $this->service->update($id, $name);

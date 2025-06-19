@@ -1,9 +1,7 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Crear Entretenimiento - Admin</title>
+<?php 
+  $title = 'Entretenimientos - Admin';
+  include_once('src/Views/Admin/sidebar.php'); 
+?>
   <style>
     * {
       margin: 0;
@@ -168,16 +166,6 @@ select {
       }
     }
   </style>
-</head>
-<body>
-
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <h1>Admin</h1>
-    <a href="/admin/categories">Categorias</a>
-    <a href="/admin/entertainments">Entretenimientos</a>
-  </div>
-
   <!-- Formulario -->
   <div class="main">
     <div class="form-container">
@@ -196,7 +184,6 @@ select {
 
         <label for="isFinal">¿Finalizada?</label>
         <select name="isFinal" required>
-          <option value="" disabled selected>Seleccione una opción</option>
           <option value="0">No</option>
           <option value="1">Sí</option>
         </select>
@@ -207,8 +194,14 @@ select {
         <label for="description">Descripción:</label>
         <input type="text" name="description" placeholder="Breve sinopsis..." required>
 
-        <label for="categoryId">ID de Categoría:</label>
-        <input type="number" name="categoryId" placeholder="Ej: 5" required>
+                <label for="categoryId">Categoría:</label>
+        <select name="categoryId">
+          <?php foreach ($data['categories'] as $category): ?>
+            <option value="<?php echo $category->id(); ?>">
+              <?php echo $category->name(); ?>
+            </option>
+          <?php endforeach; ?>
+        </select>
 
         <button type="submit" class="submit-button">Enviar</button>
         <button type="button" class="back-button" onclick="window.location.href='/admin/entertainments'">Cancelar</button>
@@ -217,5 +210,4 @@ select {
     </div>
   </div>
 
-</body>
-</html>
+<?php include_once('src/Views/Admin/footer.php'); ?>

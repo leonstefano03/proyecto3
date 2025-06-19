@@ -1,9 +1,10 @@
 <?php 
+include_once $_SERVER["DOCUMENT_ROOT"].'/src/Controller/SessionController.php';
 
 use Src\Service\Entertainment\EntertainmentUpdaterService;
 
 
-final readonly class EntertainmentPutController {
+final readonly class EntertainmentPutController extends SessionController {
     private EntertainmentUpdaterService $service;
 
     public function __construct() {
@@ -12,6 +13,7 @@ final readonly class EntertainmentPutController {
 
     public function start($id): void 
     {
+        $this->validateUser();
         $type = $_POST['type'];
         $releaseDate = new DateTime($_POST['releaseDate']);
         $isFinal = $_POST['isFinal'];

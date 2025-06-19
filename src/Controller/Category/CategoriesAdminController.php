@@ -14,6 +14,7 @@ final readonly class CategoriesAdminController extends ViewController {
 
     public function start(): void
     {
+        $this->validateUser();
         $categories = $this->service->search();
 
         $data = [
