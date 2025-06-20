@@ -3,7 +3,7 @@ include_once "SessionController.php";
 
 readonly class ViewController extends SessionController {
 
-	private const string BASE_PATH = "%s/src/Views/%s.php";
+	private const BASE_PATH = "%s/src/Views/%s.php";
 
 	public function __construct(
 		private string $view

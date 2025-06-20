@@ -84,6 +84,22 @@ final readonly class CategoryModel extends DatabaseModel {
     
         $this->primitiveQuery($query, $parameters);
     }
+
+        public function delete(int $id): void
+    {
+        $query = <<<DELETE_QUERY
+            DELETE FROM 
+                categories
+            WHERE
+                id = :id
+        DELETE_QUERY;
+
+        $parameters = [
+            'id' => $id,
+        ];
+
+        $this->primitiveQuery($query, $parameters);
+    }
     
 
     private function toCategory(?array $primitive): ?Category

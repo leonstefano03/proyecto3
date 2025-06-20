@@ -149,7 +149,7 @@
       <form action="/categories" method="POST">
         <label for="name">Nombre de la Categoría:</label>
         <input type="text" name="name" placeholder="Nombre">
-        <button type="submit" class="submit-button">Enviar</button>
+        <button type="submit" class="submit-button">Guardar</button>
         <button type="button" class="back-button" onclick="window.location.href='/admin/categories'">Cancelar</button>
       </form>
     </div>

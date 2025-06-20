@@ -22,6 +22,6 @@ final readonly class EntertainmentPutController extends SessionController {
         $categoryId = $_POST['categoryId'];
         
         $this->service->update($id, $type, $releaseDate, $isFinal, $name, $description, $categoryId);
-        header("Location: /entertainments");
+        header("Location: /admin/entertainments");
     }
 }

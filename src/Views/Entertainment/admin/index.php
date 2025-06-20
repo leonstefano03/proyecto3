@@ -165,13 +165,18 @@
         <tr>
           <td><?php echo $entertainment->id(); ?></td>
           <td><?php echo $entertainment->name(); ?></td>
+          <td><?php echo $entertainment->type() == 1 ? 'Película' : 'Serie'; ?></td>
+          <td><?php echo $entertainment->isFinal() ? 'Sí' : 'No'; ?></td>
           <td>
-            <?php echo $entertainment->type() == 1 ? 'Película' : 'Serie'; ?>
+            <?php 
+              foreach ($data['categories'] as $category) {
+                if ($category->id() == $entertainment->categoryId()) {
+                  echo $category->name();
+                  break;
+                }
+              }
+            ?>
           </td>
-          <td>
-            <?php echo $entertainment->isFinal() ? 'Sí' : 'No'; ?>
-          </td>
-          <td><?php echo $entertainment->categoryId(); ?></td>
           <td>
             <a href="/admin/entertainments/update/<?php echo $entertainment->id(); ?>" class="edit-link">
               <i class="fas fa-pen"></i>
@@ -181,6 +186,7 @@
       <?php endforeach; ?>
     </tbody>
   </table>
+
 
 </div>
 

@@ -151,7 +151,7 @@
       <form action="/categories/<?php echo $data['category']->id(); ?>" method="POST">
         <label for="name">Nombre</label>
         <input type="text" name="name" placeholder="Nombre" value="<?php echo $data['category']->name(); ?>">
-        <button type="submit" class="submit-button">Editar</button>
+        <button type="submit" class="submit-button">Guardar</button>
         <button type="button" class="back-button" onclick="window.location.href='/admin/categories'">Cancelar</button>
       </form>
     </div>

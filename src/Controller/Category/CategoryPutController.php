@@ -17,6 +17,6 @@ final readonly class CategoryPutController extends SessionController {
         $name = $_POST['name'];
         
         $this->service->update($id, $name);
-        header("Location: /categories");
+        header("Location: /admin/categories");
     }
 }
