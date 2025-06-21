@@ -17,7 +17,8 @@ final readonly class EntertainmentModel extends DatabaseModel {
                     E.is_final,
                     E.name,
                     E.description,
-                    E.category_id
+                    E.category_id,
+                    E.image_url
                   FROM
                     entertainment E
                   WHERE
@@ -42,7 +43,8 @@ final readonly class EntertainmentModel extends DatabaseModel {
                         E.is_final,
                         E.name,
                         E.description,
-                        E.category_id
+                        E.category_id,
+                        E.image_url
                     FROM 
                         Entertainment E
                 SELECT_QUERY;
@@ -63,9 +65,9 @@ final readonly class EntertainmentModel extends DatabaseModel {
         $query = <<<INSERT_QUERY
                     INSERT INTO 
                         entertainment
-                    (type, release_date, is_final, name, description, category_id, date)
+                    (type, release_date, is_final, name, description, category_id, date, image_url)
                         VALUES
-                    (:type, :release_date, :is_final, :name, :description, :category_id, :date)
+                    (:type, :release_date, :is_final, :name, :description, :category_id, :date, :image_url)
                 INSERT_QUERY;
 
         $parameters = [
@@ -75,7 +77,8 @@ final readonly class EntertainmentModel extends DatabaseModel {
             'name' => $entertainment->name(),
             'description' => $entertainment->description(),
             'category_id' => $entertainment->categoryId(),
-            'date' => (new DateTime())->format("Y-m-d H:i:s")
+            'date' => (new DateTime())->format("Y-m-d H:i:s"),
+            'image_url' => $entertainment->imageUrl(),
         ];
         $this->primitiveQuery($query, $parameters);
 
@@ -91,7 +94,8 @@ final readonly class EntertainmentModel extends DatabaseModel {
                 is_final = :is_final,
                 name = :name,
                 description = :description,
-                category_id = :category_id
+                category_id = :category_id,
+                image_url = :image_url
             WHERE
                 id = :id
         UPDATE_QUERY;
@@ -104,10 +108,28 @@ final readonly class EntertainmentModel extends DatabaseModel {
             'name' => $entertainment->name(),
             'description' => $entertainment->description(),
             'category_id' => $entertainment->categoryId(),
+            'image_url' => $entertainment->imageUrl(),
         ];
     
         $this->primitiveQuery($query, $parameters);
     }
+
+    public function delete(int $id): void
+    {
+        $query = <<<DELETE_QUERY
+            DELETE FROM 
+                entertainment
+            WHERE
+                id = :id
+        DELETE_QUERY;
+
+        $parameters = [
+            'id' => $id,
+        ];
+
+        $this->primitiveQuery($query, $parameters);
+    }
+    
 
   private function toEntertainment(?array $primitive): ?Entertainment
   {
@@ -122,7 +144,8 @@ final readonly class EntertainmentModel extends DatabaseModel {
       $primitive['is_final'] ?? false,
       $primitive['name'] ?? '',
       $primitive['description'] ?? '',
-      $primitive['category_id'] ?? 0
+      $primitive['category_id'] ?? 0,
+      $primitive['image_url'] ?? ''
     );
   }
 }

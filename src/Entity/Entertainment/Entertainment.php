@@ -14,15 +14,16 @@ final class Entertainment
         private string $name,
         private string $description,
         private int $categoryId,
+        private string $imageUrl,
     ) {
     }
 
-    public static function create(int $type, DateTime $releaseDate, bool $isFinal, string $name, string $description, int $categoryId) : self
+    public static function create(int $type, DateTime $releaseDate, bool $isFinal, string $name, string $description, int $categoryId, string $imageUrl) : self
     { 
-        return new self(null, $type, $releaseDate, $isFinal, $name, $description, $categoryId);
+        return new self(null, $type, $releaseDate, $isFinal, $name, $description, $categoryId, $imageUrl);
     }
 
-    public function modify(int $type, DateTime $releaseDate, bool $isFinal, string $name, string $description, int $categoryId): void
+    public function modify(int $type, DateTime $releaseDate, bool $isFinal, string $name, string $description, int $categoryId, string $imageUrl): void
     {
         $this->type = $type;
         $this->releaseDate = $releaseDate;
@@ -30,6 +31,7 @@ final class Entertainment
         $this->name = $name;
         $this->description = $description;
         $this->categoryId = $categoryId;
+        $this->imageUrl = $imageUrl;
     }
 
     public function id(): int
@@ -65,6 +67,11 @@ final class Entertainment
     public function categoryId(): int
     {
         return $this->categoryId;
+    }
+
+    public function imageUrl(): string
+    {
+        return $this->imageUrl;
     }
 
     

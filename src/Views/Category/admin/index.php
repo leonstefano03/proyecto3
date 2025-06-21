@@ -155,7 +155,6 @@
     <table>
       <thead>
         <tr>
-          <th>ID</th>
           <th>Nombre</th>
           <th>Acciones</th>
         </tr>
@@ -163,7 +162,6 @@
       <tbody>
         <?php foreach ($data['categories'] as $category): ?>
           <tr id="category-row-<?php echo $category->id(); ?>">
-            <td><?php echo $category->id(); ?></td>
             <td><?php echo $category->name(); ?></td>
             <td>
               <a href="/admin/categories/update/<?php echo $category->id(); ?>" class="edit-link" title="Editar">

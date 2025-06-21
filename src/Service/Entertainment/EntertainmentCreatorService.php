@@ -17,9 +17,9 @@ final readonly class EntertainmentCreatorService {
         $this->model = new EntertainmentModel();
     }
 
-    public function create(int $type, DateTime $releaseDate, bool $isFinal, string $name, string $description, int $categoryId): void 
+    public function create(int $type, DateTime $releaseDate, bool $isFinal, string $name, string $description, int $categoryId, string $imageUrl): void 
     {
-        $entertainment = Entertainment::create($type, $releaseDate, $isFinal, $name, $description, $categoryId);
+        $entertainment = Entertainment::create($type, $releaseDate, $isFinal, $name, $description, $categoryId, $imageUrl);
         $this->model->insert($entertainment);
     }
 

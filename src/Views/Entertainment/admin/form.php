@@ -152,6 +152,67 @@ select {
       background-color: #f40612;
     }
 
+    .image-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.preview-img {
+  max-width: 200px;
+  max-height: 250px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(229, 9, 20, 0.7);
+  object-fit: cover;
+  margin-bottom: 10px;
+  transition: opacity 0.3s ease;
+}
+
+.upload-button {
+  cursor: pointer;
+  background-color: #e50914;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+.upload-button:hover {
+  background-color: #b00712;
+}
+
+.file-name {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #ccc;
+  font-style: italic;
+  min-height: 18px;
+}
+
+    body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* evita scroll en todo el body */
+}
+
+.main {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* arriba, no centrado verticalmente */
+  overflow-y: auto; /* scroll vertical si el contenido es alto */
+  max-height: 100vh; /* no pasa del viewport */
+}
+
     @media (max-width: 768px) {
       body {
         flex-direction: column;
@@ -168,46 +229,79 @@ select {
   </style>
   <!-- Formulario -->
   <div class="main">
-    <div class="form-container">
-      <h2>Agregar Entretenimiento</h2>
-      <form action="/entertainments" method="POST">
+  <div class="form-container">
+    <h2>Agregar Entretenimiento</h2>
+    <form action="/entertainments" method="POST" enctype="multipart/form-data">
+      
+      <label for="type">Tipo:</label>
+      <select name="type" required>
+        <option value="" disabled selected>Seleccione tipo</option>
+        <option value="1">Película</option>
+        <option value="2">Serie</option>
+      </select>
 
-        <label for="type">Tipo:</label>
-        <select name="type" required>
-          <option value="" disabled selected>Seleccione tipo</option>
-          <option value="1">Película</option>
-          <option value="2">Serie</option>
-        </select>
+      <label for="releaseDate">Fecha de estreno:</label>
+      <input type="datetime-local" name="releaseDate" required>
 
-        <label for="releaseDate">Fecha de estreno:</label>
-        <input type="datetime-local" name="releaseDate" required>
+      <label for="isFinal">¿Finalizada?</label>
+      <select name="isFinal" required>
+        <option value="0">No</option>
+        <option value="1">Sí</option>
+      </select>
 
-        <label for="isFinal">¿Finalizada?</label>
-        <select name="isFinal" required>
-          <option value="0">No</option>
-          <option value="1">Sí</option>
-        </select>
+      <label for="name">Nombre:</label>
+      <input type="text" name="name" placeholder="Ej: Stranger Things" required>
 
-        <label for="name">Nombre:</label>
-        <input type="text" name="name" placeholder="Ej: Stranger Things" required>
+      <label for="description">Descripción:</label>
+      <input type="text" name="description" placeholder="Breve sinopsis..." required>
 
-        <label for="description">Descripción:</label>
-        <input type="text" name="description" placeholder="Breve sinopsis..." required>
+      <label for="categoryId">Categoría:</label>
+      <select name="categoryId">
+        <?php foreach ($data['categories'] as $category): ?>
+          <option value="<?php echo $category->id(); ?>">
+            <?php echo $category->name(); ?>
+          </option>
+        <?php endforeach; ?>
+      </select>
 
-                <label for="categoryId">Categoría:</label>
-        <select name="categoryId">
-          <?php foreach ($data['categories'] as $category): ?>
-            <option value="<?php echo $category->id(); ?>">
-              <?php echo $category->name(); ?>
-            </option>
-          <?php endforeach; ?>
-        </select>
+      <label for="image">Imagen:</label>
+      <div class="image-upload-container">
+        <img id="previewImage" class="preview-img" style="display:none;" alt="Vista previa de la imagen">
+        
+        <label for="image" class="upload-button">
+          <i class="fa fa-upload"></i> Elegir imagen
+        </label>
+        <input type="file" id="image" name="image" accept="image/*" hidden onchange="previewFile(event)">
+        
+        <span id="fileName" class="file-name"></span>
+      </div>
 
-        <button type="submit" class="submit-button">Enviar</button>
-        <button type="button" class="back-button" onclick="window.location.href='/admin/entertainments'">Cancelar</button>
+      <button type="submit" class="submit-button">Enviar</button>
+      <button type="button" class="back-button" onclick="window.location.href='/admin/entertainments'">Cancelar</button>
 
-      </form>
-    </div>
+    </form>
   </div>
+</div>
 
 <?php include_once('src/Views/Admin/footer.php'); ?>
+<script>function previewFile(event) {
+  const input = event.target;
+  const file = input.files[0];
+  const preview = document.getElementById('previewImage');
+  const fileNameDisplay = document.getElementById('fileName');
+
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      preview.src = e.target.result;
+      preview.style.display = 'block';
+    }
+    reader.readAsDataURL(file);
+
+    fileNameDisplay.textContent = file.name;
+  } else {
+    fileNameDisplay.textContent = '';
+    preview.style.display = 'none';
+  }
+}
+</script>

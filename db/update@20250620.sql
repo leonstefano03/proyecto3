@@ -1,0 +1,1 @@
+ALTER TABLE `entertainment` ADD `image_url` TEXT NOT NULL AFTER `is_final`;
