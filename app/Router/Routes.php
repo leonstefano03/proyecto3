@@ -2,7 +2,7 @@
 
 include_once "Route.php";
 include_once "Router.php";
-include_once "Routes/DomainRoutes.php";
+include_once "Routes/CommentRoutes.php";
 include_once "Routes/PersonRoutes.php";
 include_once "Routes/EntertainmentRoutes.php";
 include_once "Routes/CategoryRoutes.php";
@@ -12,7 +12,7 @@ function startRouter(): Router
 {
     $routes = [];
 
-    $routes = array_merge($routes, DomainRoutes::getRoutes());
+    $routes = array_merge($routes, CommentRoutes::getRoutes());
     $routes = array_merge($routes, PersonRoutes::getRoutes());
     $routes = array_merge($routes, EntertainmentRoutes::getRoutes());
     $routes = array_merge($routes, CategoryRoutes::getRoutes());

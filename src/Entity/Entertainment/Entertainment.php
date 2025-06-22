@@ -10,7 +10,7 @@ final class Entertainment
         private readonly ?int $id,
         private int $type,
         private DateTime $releaseDate,
-        private bool $isFinal,
+        private int $isFinal,
         private string $name,
         private string $description,
         private int $categoryId,
@@ -18,12 +18,12 @@ final class Entertainment
     ) {
     }
 
-    public static function create(int $type, DateTime $releaseDate, bool $isFinal, string $name, string $description, int $categoryId, string $imageUrl) : self
+    public static function create(int $type, DateTime $releaseDate, int $isFinal, string $name, string $description, int $categoryId, string $imageUrl) : self
     { 
         return new self(null, $type, $releaseDate, $isFinal, $name, $description, $categoryId, $imageUrl);
     }
 
-    public function modify(int $type, DateTime $releaseDate, bool $isFinal, string $name, string $description, int $categoryId, string $imageUrl): void
+    public function modify(int $type, DateTime $releaseDate, int $isFinal, string $name, string $description, int $categoryId, string $imageUrl): void
     {
         $this->type = $type;
         $this->releaseDate = $releaseDate;
@@ -49,7 +49,7 @@ final class Entertainment
         return $this->releaseDate;
     }
 
-    public function isFinal(): bool
+    public function isFinal(): int
     {
         return $this->isFinal;
     }

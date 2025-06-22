@@ -1,225 +1,11 @@
 <?php 
   $title = 'Entretenimientos - Admin';
+  include_once('src/Views/Admin/head.php'); 
   include_once('src/Views/Admin/sidebar.php'); 
 ?>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Helvetica Neue', sans-serif;
-    }
-
-    body {
-      display: flex;
-      height: 100vh;
-      background-color: #141414;
-      color: #fff;
-    }
-
-    .sidebar {
-      width: 240px;
-      background-color: #000;
-      padding: 30px 20px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .sidebar h1 {
-      color: #e50914;
-      font-size: 28px;
-      margin-bottom: 40px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
-
-    .sidebar a {
-      color: #fff;
-      text-decoration: none;
-      padding: 12px 15px;
-      border-radius: 5px;
-      margin-bottom: 10px;
-      transition: background-color 0.3s;
-    }
-
-    .sidebar a:hover {
-      background-color: #e50914;
-    }
-
-    .main {
-      flex: 1;
-      padding: 40px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .form-container {
-      background-color: #1f1f1f;
-      padding: 30px;
-      border-radius: 10px;
-      width: 100%;
-      max-width: 500px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.7);
-    }
-
-    .form-container h2 {
-      color: #fff;
-      margin-bottom: 25px;
-      text-align: center;
-      font-size: 24px;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-    }
-
-    label {
-      margin-bottom: 5px;
-      font-size: 14px;
-      color: #ccc;
-    }
-
-    input[type="text"],
-    input[type="int"],
-    input[type="datetime-local"] {
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      margin-bottom: 15px;
-      background-color: #333;
-      color: #fff;
-    }
-
-    .submit-button {
-      background-color: #e50914;
-      border: none;
-      border-radius: 5px;
-      color: #fff;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.3s;
-      margin-bottom: 10px;
-      display: inline-block;
-      padding: 10px 15px;
-      text-decoration: none;
-      font-size: 14px;
-    }
-
-    .submit-button:hover {
-      background-color:rgb(133, 13, 19);
-    }
-
-    .back-button {
-      cursor: pointer;
-      display: inline-block;
-      padding: 10px 15px;
-      background-color: #333;
-      color: #fff;
-      font-weight: bold;
-      border: none;
-      border-radius: 5px;
-      text-decoration: none;
-      font-size: 14px;
-      transition: background-color 0.3s;
-    }
-
-    .back-button:hover {
-      background-color: #f40612;
-    }
-
-    select {
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  margin-bottom: 15px;
-  background-color: #333;
-  color: #fff;
-  appearance: none;
-}
-.image-upload-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-.preview-img {
-  max-width: 200px;
-  max-height: 250px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(229, 9, 20, 0.7);
-  object-fit: cover;
-  margin-bottom: 10px;
-  transition: opacity 0.3s ease;
-}
-
-.upload-button {
-  cursor: pointer;
-  background-color: #e50914;
-  color: #fff;
-  border-radius: 5px;
-  padding: 10px 20px; 
-  font-weight: bold;
-  font-size: 14px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  user-select: none;
-  transition: background-color 0.3s ease;
-}
-
-.upload-button:hover {
-  background-color: #b00712;
-}
-
-.file-name {
-  margin-top: 8px;
-  font-size: 13px;
-  color: #ccc;
-  font-style: italic;
-  min-height: 18px;
-}
-body, html {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow: hidden; /* evita scroll en todo el body */
-}
-
-.main {
-  flex: 1;
-  padding: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start; /* arriba, no centrado verticalmente */
-  overflow-y: auto; /* scroll vertical si el contenido es alto */
-  max-height: 100vh; /* no pasa del viewport */
-}
-img {
-      width: 100%;
-      height: 200px; /* o el alto que prefieras */
-      object-fit: cover;
-      border-radius: 10px;
-      margin-bottom: 10px;
-    }
-
-    @media (max-width: 768px) {
-      body {
-        flex-direction: column;
-      }
-      .sidebar {
-        flex-direction: row;
-        width: 100%;
-        height: auto;
-        padding: 15px;
-        justify-content: space-around;
-      }
-    }
-  </style>
+ 
   <!-- Contenido principal -->
-  <div class="main">
+  <div class="main-form">
     <div class="form-container">
       <h2>Editar Entretenimiento</h2>
       <form action="/entertainments/<?php echo $data['entertainment']->id(); ?>" method="POST" enctype="multipart/form-data">
@@ -278,6 +64,30 @@ img {
 
       </form>
     </div>
+      <?php if (!empty($data['comments'])): ?>
+    <div class="admin-comments-list">
+      <h3 style="margin-top: 40px;margin-bottom: 10px;">Comentarios</h3>
+
+      <?php foreach ($data['comments'] as $comment): ?>
+        <div class="admin-comment-item">
+          <div class="admin-comment-content">
+            <strong><?php echo htmlspecialchars($comment->author() ?? 'Anónimo'); ?>:</strong>
+            <p><?php echo nl2br(htmlspecialchars($comment->content())); ?></p>
+            <span class="admin-comment-date"><?php echo $comment->date()->format('d/m/Y H:i'); ?></span>
+          </div>
+
+          <form action="/comments/delete/<?php echo $comment->id(); ?>" method="POST" class="delete-comment-form" onsubmit="return confirm('¿Eliminar este comentario?')">
+            <button type="submit" class="delete-comment-button" title="Eliminar">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </form>
+        </div>
+      <?php endforeach; ?>
+    </div>
+  <?php else: ?>
+    <p style="margin-top: 40px; color: #aaa;">No hay comentarios para este entretenimiento.</p>
+  <?php endif; ?>
+
   </div>
 
 <?php include_once('src/Views/Admin/footer.php'); ?>

@@ -1,170 +1,72 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Detalle de Entretenimiento</title>
-  <style>
-    /* Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><?php echo $data["entertainment"]->name(); ?> - Detalle</title>
+  <link rel="stylesheet" href="/src/assets/css/app.css">
 
-    body {
-      background-color: #141414;
-      color: #eee;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-    }
-
-    .card {
-      background-color: #222;
-      border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(229, 9, 20, 0.7);
-      max-width: 600px;
-      width: 100%;
-      padding: 30px 40px;
-      transition: transform 0.3s ease;
-    }
-
-    .card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 12px 32px rgba(229, 9, 20, 0.9);
-    }
-
-    h1 {
-      font-size: 1.8rem;
-      font-weight: 900;
-      color: #e50914;
-      margin-bottom: 24px;
-      letter-spacing: 3px;
-      text-align: center;
-      text-transform: uppercase;
-    }
-
-    .field {
-      margin-bottom: 10px;
-    }
-
-    .label {
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: #aaa;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 5px;
-      display: block;
-    }
-
-    .value {
-      font-size: 0.8rem;
-      color: #fff;
-      font-weight: 500;
-      word-wrap: break-word;
-    }
-
-    /* Badge style para tipo y finalizado */
-    .badge {
-      display: inline-block;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-weight: 700;
-      font-size: 0.8rem;
-      color: #141414;
-    }
-
-    .badge.movie {
-      background-color: #e50914;
-    }
-
-    .badge.series {
-      background-color: #b81d24;
-    }
-
-    .badge.yes {
-      background-color: #27ae60;
-      color: white;
-    }
-
-    .badge.no {
-      background-color: #999;
-      color: #222;
-    }
-		.back-link {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: #e50914;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 5px;
-      font-weight: bold;
-      transition: background-color 0.3s;
-    }
-
-    .back-link:hover {
-      background-color: #b0060e;
-    }
-  </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Detalle Entretenimiento</h1>
-
-    <div class="field">
-      <span class="label">ID</span>
-      <span class="value"><?php echo $data["entertainment"]->id(); ?></span>
+  <div class="main-detail">
+  <div class="container-detail">
+    <div class="image-detail">
+      <img src="<?php echo $data["entertainment"]->imageUrl(); ?>" alt="Imagen de <?php echo htmlspecialchars($data["entertainment"]->name()); ?>">
     </div>
-
-    <div class="field">
-      <span class="label">Nombre</span>
-      <span class="value"><?php echo $data["entertainment"]->name(); ?></span>
+    <div class="details">
+      <h1><?php echo $data["entertainment"]->name(); ?></h1>
+      <p><span class="label-detail">Tipo:</span> <?php echo $data["entertainment"]->type() == 1 ? 'Película' : 'Serie'; ?></p>
+      <p><span class="label-detail">Fecha de estreno:</span> <?php echo $data["entertainment"]->releaseDate()->format('d/m/Y'); ?></p>
+      <p><span class="label-detail">¿Finalizada?:</span> <?php echo $data["entertainment"]->isFinal() ? 'Sí' : 'No'; ?></p>
+      <p><span class="label-detail">Descripción:</span><br><?php echo nl2br(htmlspecialchars($data["entertainment"]->description())); ?></p>
+      <a class="submit-button" href="/entertainments">← Volver al catálogo</a>
     </div>
-
-    <div class="field">
-      <span class="label">Tipo</span>
-      <span class="value">
-        <?php if ($data["entertainment"]->type() == 1): ?>
-          <span class="badge movie">Película</span>
-        <?php else: ?>
-          <span class="badge series">Serie</span>
-        <?php endif; ?>
-      </span>
-    </div>
-
-    <div class="field">
-      <span class="label">Fecha de estreno</span>
-      <span class="value"><?php echo $data["entertainment"]->releaseDate()->format('d/m/Y H:i'); ?></span>
-    </div>
-
-    <div class="field">
-      <span class="label">¿Finalizada?</span>
-      <span class="value">
-        <?php if ($data["entertainment"]->isFinal() == 1): ?>
-          <span class="badge yes">Sí</span>
-        <?php else: ?>
-          <span class="badge no">No</span>
-        <?php endif; ?>
-      </span>
-    </div>
-
-    <div class="field">
-      <span class="label">Descripción</span>
-      <span class="value"><?php echo $data["entertainment"]->description(); ?></span>
-    </div>
-
-    <div class="field">
-      <span class="label">ID de Categoría</span>
-      <span class="value"><?php echo $data["entertainment"]->categoryId(); ?></span>
-    </div>
-		<a href="/entertainments" class="back-link">Volver</a>
-
   </div>
+  <div class="container-detail comments">
+  <h2 style="color: #e50914;">Comentarios</h2>
+
+  <!-- Lista de comentarios existentes -->
+  <div id="commentList">
+    <?php if (!empty($data['comments'])): ?>
+      <?php foreach ($data['comments'] as $comment): ?>
+        <div  class="comment-item">
+          <p><strong><?php echo htmlspecialchars($comment->author() ?? 'Anónimo'); ?>:</strong></p>
+          <p><?php echo nl2br(htmlspecialchars($comment->content())); ?></p>
+          <p><?php echo $comment->date()->format('d/m/Y H:i'); ?></p>
+        </div>
+      <?php endforeach; ?>
+    <?php else: ?>
+      <p style="color: #888;">Aún no hay comentarios. ¡Sé el primero!</p>
+    <?php endif; ?>
+  </div>
+  <!-- Botón para mostrar el formulario -->
+<button id="showCommentForm">
+  Agregar comentario
+</button>
+
+<!-- Formulario oculto inicialmente -->
+<form id="commentForm" action="/comments" method="POST">
+  <input type="hidden" name="entertainmentId" value="<?php echo $data['entertainment']->id(); ?>">
+  
+  <label for="author">Tu nombre (opcional):</label>
+  <input type="text" name="author" id="author" placeholder="Ej: Juan o dejar vacío para Anónimo">
+
+  <label for="content">Comentario:</label>
+  <textarea name="content" id="content" rows="4" required placeholder="Escribí tu comentario..."></textarea>
+
+  <button type="submit">Enviar comentario</button>
+</form>
+</div>
+</div>
 </body>
 </html>
+<script>
+  const showBtn = document.getElementById('showCommentForm');
+  const form = document.getElementById('commentForm');
+
+  showBtn.addEventListener('click', () => {
+    form.style.display = 'block';
+    showBtn.style.display = 'none';
+    form.scrollIntoView({ behavior: 'smooth' });
+  });
+</script>

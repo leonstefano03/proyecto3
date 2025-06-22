@@ -17,6 +17,7 @@ final readonly class CategoryModel extends DatabaseModel {
                         categories C
                     WHERE
                         C.id = :id
+                    ORDER BY C.date DESC
                 SELECT_QUERY;
 
         $parameters = [

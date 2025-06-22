@@ -20,7 +20,7 @@ final readonly class EntertainmentModel extends DatabaseModel {
                     E.category_id,
                     E.image_url
                   FROM
-                    entertainment E
+                    entertainments E
                   WHERE
                     E.id = :id
                 SELECT_QUERY;
@@ -46,7 +46,8 @@ final readonly class EntertainmentModel extends DatabaseModel {
                         E.category_id,
                         E.image_url
                     FROM 
-                        Entertainment E
+                        Entertainments E
+                    ORDER BY E.date DESC
                 SELECT_QUERY;
 
         $primitiveResults = $this->primitiveQuery($query);
@@ -64,7 +65,7 @@ final readonly class EntertainmentModel extends DatabaseModel {
     {
         $query = <<<INSERT_QUERY
                     INSERT INTO 
-                        entertainment
+                        entertainments
                     (type, release_date, is_final, name, description, category_id, date, image_url)
                         VALUES
                     (:type, :release_date, :is_final, :name, :description, :category_id, :date, :image_url)
@@ -87,7 +88,7 @@ final readonly class EntertainmentModel extends DatabaseModel {
     {
         $query = <<<UPDATE_QUERY
             UPDATE 
-                entertainment
+                entertainments
             SET 
                 type = :type,
                 release_date = :release_date,
@@ -118,7 +119,7 @@ final readonly class EntertainmentModel extends DatabaseModel {
     {
         $query = <<<DELETE_QUERY
             DELETE FROM 
-                entertainment
+                entertainments
             WHERE
                 id = :id
         DELETE_QUERY;
@@ -141,7 +142,7 @@ final readonly class EntertainmentModel extends DatabaseModel {
       $primitive['id'] ?? 0,
       $primitive['type'] ?? '',
       new DateTime($primitive['release_date'] ?? 'now'),
-      $primitive['is_final'] ?? false,
+      $primitive['is_final'] ?? '',
       $primitive['name'] ?? '',
       $primitive['description'] ?? '',
       $primitive['category_id'] ?? 0,
